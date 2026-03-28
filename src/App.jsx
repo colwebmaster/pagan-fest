@@ -581,7 +581,7 @@ function Contact() {
           <div style={{ textAlign:"center", padding:"46px 24px", background:`rgba(26,61,43,0.28)`,
             border:`1px solid ${C.gold}38`, borderRadius:4 }}>
             <div style={{ fontSize:38, marginBottom:10 }}>🌕</div>
-            <h3 style={{ fontFamily:"'Cinzel',serif", color:C.gold, fontSize:17, marginBottom:7 }}>Blessed Be!</h3>
+            <h3 style={{ fontFamily:"'Cinzel',serif", color:C.gold, fontSize:17, marginBottom:7 }}>Thank You!</h3>
             <p style={{ color:C.lavLight, fontSize:14 }}>Your message has been received. We'll be in touch soon.</p>
           </div>
         ) : (
@@ -644,7 +644,7 @@ function Footer() {
         September 19, 2026 · Roeding Park · 890 W Belmont Ave, Fresno CA 93728
       </p>
       <p style={{ fontFamily:"'IM Fell English',serif", fontStyle:"italic", color:`${C.lavender}38`, fontSize:12, marginTop:10 }}>
-        All paths welcome · Blessed be 🌙
+        All paths welcome
       </p>
     </footer>
   );
