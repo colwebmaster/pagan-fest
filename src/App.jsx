@@ -271,7 +271,7 @@ function HerbBundle() {
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const links = ["Home","About","Schedule","Vendors","Tickets","Contact"];
+  const links = ["Home","About","Schedule","Vendors","Contact"];
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", fn);
@@ -371,16 +371,7 @@ function Hero() {
       </p>
 
       <div style={{ display:"flex", gap:14, flexWrap:"wrap", justifyContent:"center", animation:"fadeIn 1s 1.2s both" }}>
-        <button onClick={() => document.getElementById("tickets")?.scrollIntoView({behavior:"smooth"})}
-          style={{ padding:"12px 28px", fontFamily:"'Cinzel',serif", fontSize:11, letterSpacing:"0.2em",
-            textTransform:"uppercase", background:`linear-gradient(135deg,${C.forestGreen},${C.darkGreen})`,
-            color:C.goldLight, border:`1px solid ${C.gold}60`, borderRadius:3, cursor:"pointer",
-            boxShadow:`0 0 24px ${C.forestGreen}70`, transition:"transform 0.2s" }}
-          onMouseEnter={e => e.currentTarget.style.transform="scale(1.05)"}
-          onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}>
-          Get Tickets
-        </button>
-        <button onClick={() => document.getElementById("about")?.scrollIntoView({behavior:"smooth"})}
+<button onClick={() => document.getElementById("about")?.scrollIntoView({behavior:"smooth"})}
           style={{ padding:"12px 28px", fontFamily:"'Cinzel',serif", fontSize:11, letterSpacing:"0.2em",
             textTransform:"uppercase", background:"transparent", color:C.lavLight,
             border:`1px solid ${C.lavender}55`, borderRadius:3, cursor:"pointer", transition:"border-color 0.2s" }}
@@ -572,65 +563,6 @@ function Vendors() {
   );
 }
 
-function Tickets() {
-  const tiers = [
-    { icon:"🌙", name:"General Festival", price:"FREE", note:"Open to all", border:C.forestGreen, bg:"rgba(26,61,43,0.35)",
-      perks:["Full festival grounds access","Vendor market","Public workshops & classes","Community rituals & demos","Free BBQ for all attendees"] },
-
-    { icon:"🧺", name:"Community Donations", price:"Give What You Can", note:"Help nourish the sacred space", border:C.darkGreen, bg:"rgba(18,42,30,0.4)",
-      perks:["BBQ-style food donations","Bottled water donations","All contributions welcomed","Feed fellow attendees","Strengthen our community"],
-      link:"https://www.zeffy.com/en-US/ticketing/fresno-pagan-spirituality-festival", linkLabel:"Donate" },
-  ];
-
-  return (
-    <section id="tickets" style={{ background:`linear-gradient(180deg,${C.deepPurple},${C.darkPurple})`, padding:"80px 24px" }}>
-      <div style={{ maxWidth:960, margin:"0 auto" }}>
-        <Divider/><div style={{ height:38 }}/>
-        <SectionTitle eyebrow="☽ Join Us ☾" title="Admission"
-          sub="All seekers are welcome to our sacred community gathering."/>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))", gap:20 }}>
-          {tiers.map((t,i) => (
-            <div key={i} style={{ padding:"26px 20px", borderRadius:4, display:"flex", flexDirection:"column",
-              background:t.bg, border:`1px solid ${t.border}55`,
-              boxShadow: i===1 ? `0 0 28px ${C.richPurple}38` : "none",
-              transition:"transform 0.25s" }}
-              onMouseEnter={e => e.currentTarget.style.transform="translateY(-6px)"}
-              onMouseLeave={e => e.currentTarget.style.transform="translateY(0)"}>
-              <div style={{ fontSize:30, marginBottom:9 }}>{t.icon}</div>
-              <p style={{ fontFamily:"'Cinzel',serif", color:C.lavLight, fontSize:13, marginBottom:3 }}>{t.name}</p>
-              <p style={{ fontFamily:"'Cinzel Decorative',serif", color:C.gold, fontSize:20, marginBottom:2 }}>{t.price}</p>
-              <p style={{ color:C.lavender, fontSize:10, marginBottom:14, fontFamily:"'Cinzel',serif", letterSpacing:"0.08em" }}>{t.note}</p>
-              <ul style={{ flex:1, listStyle:"none", padding:0, marginBottom:18 }}>
-                {t.perks.map((p,j) => (
-                  <li key={j} style={{ display:"flex", gap:7, alignItems:"flex-start", marginBottom:5,
-                    color:C.purple200, fontSize:12 }}>
-                    <span style={{ color:C.gold, fontSize:9, marginTop:3 }}>✦</span>{p}
-                  </li>
-                ))}
-              </ul>
-              {t.link && (
-                <a href={t.link} target="_blank" rel="noopener noreferrer"
-                  style={{ display:"block", textAlign:"center", padding:"10px", fontFamily:"'Cinzel',serif",
-                    fontSize:10, letterSpacing:"0.16em", textTransform:"uppercase", textDecoration:"none",
-                    background:`linear-gradient(135deg,${C.forestGreen},${C.darkGreen})`,
-                    color:C.goldLight, border:`1px solid ${C.gold}50`, borderRadius:2,
-                    boxShadow:`0 0 14px ${C.forestGreen}50`, transition:"opacity 0.2s" }}
-                  onMouseEnter={e => e.currentTarget.style.opacity="0.85"}
-                  onMouseLeave={e => e.currentTarget.style.opacity="1"}>
-                  {t.linkLabel}
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-        <p style={{ textAlign:"center", fontFamily:"'Cinzel',serif", color:`${C.lavender}55`,
-          fontSize:9.5, letterSpacing:"0.14em", marginTop:22 }}>
-          ROEDING PARK · 890 W BELMONT AVE · FRESNO CA 93728 · RAIN OR SHINE
-        </p>
-      </div>
-    </section>
-  );
-}
 
 function Contact() {
   const [sent, setSent] = useState(false);
@@ -744,7 +676,6 @@ export default function App() {
         <About/>
         <Schedule/>
         <Vendors/>
-        <Tickets/>
         <Contact/>
         <Footer/>
       </div>
