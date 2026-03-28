@@ -15,11 +15,13 @@ const C = {
   purple200:    "rgba(180,143,212,0.85)",
 };
 
+const STARS_DATA = Array.from({ length: 80 }, (_, i) => ({
+  id: i, x: Math.random()*100, y: Math.random()*100,
+  r: Math.random()*1.8+0.5, delay: Math.random()*5, dur: Math.random()*3+2,
+}));
+
 function Stars() {
-  const stars = Array.from({ length: 80 }, (_, i) => ({
-    id: i, x: Math.random()*100, y: Math.random()*100,
-    r: Math.random()*1.8+0.5, delay: Math.random()*5, dur: Math.random()*3+2,
-  }));
+  const stars = STARS_DATA;
   return (
     <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0, overflow:"hidden" }}>
       {stars.map(s => (
@@ -333,7 +335,7 @@ function Hero() {
       position:"relative", overflow:"hidden" }}>
 
       {/* Corner flourishes */}
-      {[[0,0,"M12 168 Q12 12 168 12","M12 138 Q12 32 138 32"],[1,0,"M328 168 Q328 12 172 12","M328 138 Q328 32 202 32"]].map(([side,_,p1,p2],i) => (
+      {[[0,0,"M12 168 Q12 12 168 12","M12 138 Q12 32 138 32"],[1,0,"M328 168 Q328 12 172 12","M328 138 Q328 32 202 32"]].map(([side,,p1,p2],i) => (
         <svg key={i} style={{ position:"absolute", top:0, [side?"right":"left"]:0, width:180, height:180, opacity:0.32, pointerEvents:"none" }} viewBox="0 0 340 180">
           <path d={p1} stroke={C.lavender} strokeWidth="1" fill="none"/>
           <path d={p2} stroke={C.gold} strokeWidth="0.5" fill="none" opacity="0.5"/>
@@ -566,10 +568,40 @@ function Vendors() {
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(false);
   const inputStyle = { width:"100%", padding:"10px 13px", background:`rgba(26,61,43,0.18)`,
     border:`1px solid ${C.goldDark}38`, borderRadius:2, color:C.lavLight,
     fontFamily:"Georgia,serif", fontSize:13, outline:"none", boxSizing:"border-box",
     transition:"border-color 0.2s" };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(false);
+    const formData = new FormData(e.target);
+    formData.append("access_key", import.meta.env.VITE_CONTACT_ACCESS_KEY);
+    formData.append("subject", `Pagan Fest - ${formData.get("subject")}`);
+    formData.append("from_name", "Fresno Pagan Spirituality Festival");
+    try {
+      setIsSubmitting(true);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        e.target.reset();
+        setSent(true);
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" style={{ background:C.darkPurple, padding:"80px 24px" }}>
@@ -586,12 +618,12 @@ function Contact() {
           </div>
         ) : (
           <div style={{ background:`rgba(26,14,58,0.48)`, border:`1px solid ${C.goldDark}38`, borderRadius:4, padding:"30px 26px" }}>
-            <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
-              {["Your Name","Email Address","Subject"].map((label,i) => (
+            <form onSubmit={handleSubmit} style={{ display:"flex", flexDirection:"column", gap:16 }}>
+              {[["name","Your Name","text"],["email","Email Address","email"],["subject","Subject","text"]].map(([name,label,type],i) => (
                 <div key={i}>
                   <label style={{ display:"block", fontFamily:"'Cinzel',serif", color:`${C.lavender}85`,
                     fontSize:9.5, letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:5 }}>{label}</label>
-                  <input type={i===1?"email":"text"} style={inputStyle}
+                  <input name={name} type={type} required style={inputStyle}
                     onFocus={e => e.target.style.borderColor=`${C.gold}70`}
                     onBlur={e => e.target.style.borderColor=`${C.goldDark}38`}/>
                 </div>
@@ -599,20 +631,21 @@ function Contact() {
               <div>
                 <label style={{ display:"block", fontFamily:"'Cinzel',serif", color:`${C.lavender}85`,
                   fontSize:9.5, letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:5 }}>Message</label>
-                <textarea rows={5} style={{ ...inputStyle, resize:"vertical" }}
+                <textarea name="message" rows={5} required style={{ ...inputStyle, resize:"vertical" }}
                   onFocus={e => e.target.style.borderColor=`${C.gold}70`}
                   onBlur={e => e.target.style.borderColor=`${C.goldDark}38`}/>
               </div>
-              <button onClick={() => setSent(true)}
+              {error && <p style={{ color:"#e74c3c", fontSize:13, textAlign:"center" }}>Something went wrong. Please try again.</p>}
+              <button type="submit" disabled={isSubmitting}
                 style={{ padding:"12px", fontFamily:"'Cinzel',serif", fontSize:11, letterSpacing:"0.2em",
-                  textTransform:"uppercase", background:`linear-gradient(135deg,${C.forestGreen},${C.darkGreen})`,
-                  color:C.goldLight, border:`1px solid ${C.gold}45`, borderRadius:2, cursor:"pointer",
+                  textTransform:"uppercase", background: isSubmitting ? `rgba(26,61,43,0.4)` : `linear-gradient(135deg,${C.forestGreen},${C.darkGreen})`,
+                  color:C.goldLight, border:`1px solid ${C.gold}45`, borderRadius:2, cursor: isSubmitting ? "not-allowed" : "pointer",
                   boxShadow:`0 0 18px ${C.forestGreen}55`, transition:"transform 0.2s" }}
-                onMouseEnter={e => e.currentTarget.style.transform="scale(1.02)"}
+                onMouseEnter={e => { if(!isSubmitting) e.currentTarget.style.transform="scale(1.02)" }}
                 onMouseLeave={e => e.currentTarget.style.transform="scale(1)"}>
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
-            </div>
+            </form>
             <div style={{ marginTop:26, paddingTop:22, borderTop:`1px solid ${C.goldDark}28`,
               display:"flex", flexWrap:"wrap", gap:20, justifyContent:"center" }}>
               {[
