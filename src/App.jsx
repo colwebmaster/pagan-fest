@@ -536,27 +536,42 @@ function Vendors() {
           ritual tools, herbs, candles, pagan artwork, tarot and oracle decks, wire-wrapped pieces, orgonite,
           spiritual readings, and so much more. Every booth a discovery, every purchase a blessing.
         </p>
-        <div style={{ marginTop:28, padding:"20px 26px", background:`rgba(180,143,212,0.07)`,
+        <div style={{ marginTop:28, padding:"26px 28px", background:`rgba(180,143,212,0.07)`,
           border:`1px dashed ${C.lavender}38`, borderRadius:4, textAlign:"center" }}>
-          <p style={{ fontFamily:"'Cinzel',serif", color:C.lavLight, fontSize:12, marginBottom:7 }}>
-            Want to be a vendor, volunteer, or presenter?
+          <p style={{ fontFamily:"'Cinzel',serif", color:C.gold, fontSize:12, letterSpacing:"0.22em",
+            textTransform:"uppercase", marginBottom:12 }}>
+            Become a Vendor
           </p>
-          <p style={{ color:C.purple200, fontSize:13, marginBottom:14 }}>
-            Contact us or send us a Facebook message — we'd love to have you!
+          <p style={{ color:C.purple200, fontSize:14, lineHeight:1.75, maxWidth:560, margin:"0 auto 14px" }}>
+            Ready to be part of the festival?{" "}
+            <a href="https://www.zeffy.com/en-US/ticketing/fresno-pagan-spirituality-festival-vendor-registration"
+              target="_blank" rel="noopener noreferrer"
+              style={{ color:C.gold, textDecoration:"underline" }}>
+              Complete your vendor registration here
+            </a>.
+          </p>
+          <p style={{ color:C.purple200, fontSize:14, lineHeight:1.75, maxWidth:560, margin:"0 auto 18px" }}>
+            Interested in leading a workshop? We'll waive your vendor fee entirely.{" "}
+            <a href="#contact" onClick={e => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior:"smooth" }); }}
+              style={{ color:C.gold, textDecoration:"underline", cursor:"pointer" }}>
+              Reach out to us
+            </a>{" "}ahead of the event to make arrangements.
           </p>
           <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
-            <a href="#contact" onClick={e => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior:"smooth" }); }}
-              style={{ fontFamily:"'Cinzel',serif", color:C.goldLight, fontSize:10, letterSpacing:"0.14em",
-                textDecoration:"none", background:`linear-gradient(135deg,${C.forestGreen},${C.darkGreen})`,
-                border:`1px solid ${C.gold}50`, padding:"8px 20px", borderRadius:2, display:"inline-block" }}>
-              Contact Us
-            </a>
-            <a href="https://www.facebook.com/p/Fresno-Pagan-Spirituality-Festival-61577325568920/"
+            <a href="https://www.zeffy.com/en-US/ticketing/fresno-pagan-spirituality-festival-vendor-registration"
               target="_blank" rel="noopener noreferrer"
-              style={{ fontFamily:"'Cinzel',serif", color:C.gold, fontSize:10, letterSpacing:"0.14em",
-                textDecoration:"none", border:`1px solid ${C.gold}45`, padding:"8px 20px",
-                borderRadius:2, display:"inline-block" }}>
-              Message on Facebook
+              style={{ fontFamily:"'Cinzel',serif", color:C.goldLight, fontSize:10, letterSpacing:"0.18em",
+                textTransform:"uppercase", textDecoration:"none",
+                background:`linear-gradient(135deg,${C.forestGreen},${C.darkGreen})`,
+                border:`1px solid ${C.gold}70`, padding:"10px 22px", borderRadius:2, display:"inline-block",
+                boxShadow:`0 0 14px ${C.forestGreen}55` }}>
+              Register as a Vendor ✦
+            </a>
+            <a href="#contact" onClick={e => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior:"smooth" }); }}
+              style={{ fontFamily:"'Cinzel',serif", color:C.gold, fontSize:10, letterSpacing:"0.18em",
+                textTransform:"uppercase", textDecoration:"none",
+                border:`1px solid ${C.gold}45`, padding:"10px 22px", borderRadius:2, display:"inline-block" }}>
+              Questions? Contact Us
             </a>
           </div>
         </div>
