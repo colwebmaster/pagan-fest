@@ -694,6 +694,13 @@ function Footer() {
       <p style={{ fontFamily:"'IM Fell English',serif", fontStyle:"italic", color:`${C.lavender}38`, fontSize:12, marginTop:10 }}>
         All paths welcome
       </p>
+      <p style={{ color:`${C.lavender}55`, fontSize:11, marginTop:14 }}>
+        Hosted by{" "}
+        <a href="https://www.churchofluciferusa.org" target="_blank" rel="noopener noreferrer"
+          style={{ color:C.gold, textDecoration:"underline" }}>
+          Church of Lucifer
+        </a>
+      </p>
     </footer>
   );
 }
